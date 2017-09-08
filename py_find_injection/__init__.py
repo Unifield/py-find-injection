@@ -77,7 +77,7 @@ class Checker(ast.NodeVisitor):
 
     def visit_Call(self, node):
         function_name = stringify(node.func)
-        if function_name.lower() in ('session.execute', 'cursor.execute'):
+        if function_name.lower().endswith('execute'):
             node.args[0].parent = node
             node_error = self.check_execute(node.args[0])
             if node_error:
